@@ -1,0 +1,54 @@
+version: "3.1"
+
+nlu:
+
+- intent: book_room
+  examples: |
+    - I want to book a room
+    - I want to book a room
+    - I need a room
+    - I would like to reserve a room
+    - I want to make a room reservation
+    - Can I book a room?
+    - I need to reserve a room
+    - I want to reserve [2](number_of_rooms) rooms
+    - Book [1](number_of_rooms) room for me
+    - I want [2](number_of_rooms) rooms
+    - I need [3](number_of_rooms) rooms
+    - I want to book a [simple](room_type) room
+    - I want a [deluxe](room_type) room
+    - Book a [premium](room_type) room
+    - I need a [simple](room_type) room
+    - I want to reserve a [deluxe](room_type) room
+    - Can I book a [premium](room_type) room?
+    - I want [2](number_of_rooms) [deluxe](room_type) rooms
+    - Book [3](number_of_rooms) [simple](room_type) rooms
+    - I need [2](number_of_rooms) [premium](room_type) rooms
+    - Reserve [1](number_of_rooms) [deluxe](room_type) room
+    - Mujhe ek room book karna hai
+    - Mujhe [2](number_of_rooms) rooms chahiye
+    - Mujhe [2](number_of_rooms) [deluxe](room_type) rooms book karne hain
+    - Ek [simple](room_type) room chahiye
+    - Mujhe [premium](room_type) room chahiye
+    - [3](number_of_rooms) [deluxe](room_type) rooms book kar do
+    - Bhai [2](number_of_rooms) rooms book karne hain
+    - Mujhe [1](number_of_rooms) [simple](room_type) room chahiye
+
+- lookup: room_type
+  examples: |
+    - simple
+    - deluxe
+    - premium
+
+- lookup: number_of_rooms
+  examples: |
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - one
+    - two
+    - three
+    - four
+    - five

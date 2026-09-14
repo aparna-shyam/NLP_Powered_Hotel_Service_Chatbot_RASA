@@ -8,26 +8,64 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - book_room
+
+entities:
+  - room_type
+  - number_of_rooms
+
+slots:
+  room_type:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: room_type
+
+  number_of_rooms:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: number_of_rooms
 
 responses:
+
   utter_greet:
-  - text: "Hey! How are you?"
+    - text: "Hey! How are you?"
 
   utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
+    - text: "Here is something to cheer you up:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
 
   utter_did_that_help:
-  - text: "Did that help you?"
+    - text: "Did that help you?"
 
   utter_happy:
-  - text: "Great, carry on!"
+    - text: "Great, carry on!"
 
   utter_goodbye:
-  - text: "Bye"
+    - text: "Bye"
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+    - text: "I am a bot, powered by Rasa."
+
+  utter_ask_room_type:
+    - text: "What type of room would you like? Simple, Deluxe, or Premium?"
+
+  utter_ask_number_of_rooms:
+    - text: "How many rooms would you like to book?"
+
+  utter_booking_confirmation:
+    - text: "Your booking request for {number_of_rooms} {room_type} room(s) has been recorded."
+
+actions:
+  - validate_booking_form
+  - action_reset_booking
+
+forms:
+  booking_form:
+    required_slots:
+      - room_type
+      - number_of_rooms
 
 session_config:
   session_expiration_time: 60

@@ -2,12 +2,27 @@ version: "3.1"
 
 rules:
 
-- rule: Say goodbye anytime the user says goodbye
+- rule: Say hello
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Say goodbye
   steps:
   - intent: goodbye
   - action: utter_goodbye
 
-- rule: Say 'I am a bot' anytime the user challenges
+- rule: Activate booking form
   steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
+  - intent: book_room
+  - action: booking_form
+  - active_loop: booking_form
+
+- rule: Submit booking form
+  condition:
+  - active_loop: booking_form
+  steps:
+  - action: booking_form
+  - active_loop: null
+  - action: utter_booking_confirmation
+  - action: action_reset_booking
