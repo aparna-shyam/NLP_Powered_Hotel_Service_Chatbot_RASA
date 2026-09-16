@@ -2,6 +2,10 @@ version: "3.1"
 
 stories:
 
+# -----------------------------------------------
+# Original mood stories
+# -----------------------------------------------
+
 - story: happy path
   steps:
   - intent: greet
@@ -28,3 +32,148 @@ stories:
   - action: utter_did_that_help
   - intent: deny
   - action: utter_goodbye
+
+# -----------------------------------------------
+# Room Cleaning Stories
+# -----------------------------------------------
+
+- story: room cleaning - full flow
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: request_room_cleaning
+  - action: utter_cleaning_request_intro
+  - action: room_cleaning_form
+  - active_loop: room_cleaning_form
+  - active_loop: null
+  - action: action_submit_room_cleaning
+  - action: utter_anything_else
+
+- story: room cleaning - direct request without greet
+  steps:
+  - intent: request_room_cleaning
+  - action: utter_cleaning_request_intro
+  - action: room_cleaning_form
+  - active_loop: room_cleaning_form
+  - active_loop: null
+  - action: action_submit_room_cleaning
+  - action: utter_anything_else
+
+- story: room cleaning - user cancels mid-form
+  steps:
+  - intent: request_room_cleaning
+  - action: utter_cleaning_request_intro
+  - action: room_cleaning_form
+  - active_loop: room_cleaning_form
+  - intent: cancel_room_cleaning
+  - action: action_cancel_room_cleaning
+  - active_loop: null
+  - action: utter_anything_else
+
+- story: room cleaning - confirmed then goodbye
+  steps:
+  - intent: request_room_cleaning
+  - action: utter_cleaning_request_intro
+  - action: room_cleaning_form
+  - active_loop: room_cleaning_form
+  - active_loop: null
+  - action: action_submit_room_cleaning
+  - action: utter_anything_else
+  - intent: goodbye
+  - action: utter_goodbye
+
+# -----------------------------------------------
+# FAQ Stories
+# -----------------------------------------------
+
+- story: faq check-in time
+  steps:
+  - intent: faq_checkin_time
+  - action: utter_faq_checkin_time
+  - action: utter_anything_else
+
+- story: faq check-out time
+  steps:
+  - intent: faq_checkout_time
+  - action: utter_faq_checkout_time
+  - action: utter_anything_else
+
+- story: faq wifi
+  steps:
+  - intent: faq_wifi
+  - action: utter_faq_wifi
+  - action: utter_anything_else
+
+- story: faq amenities
+  steps:
+  - intent: faq_amenities
+  - action: utter_faq_amenities
+  - action: utter_anything_else
+
+- story: faq restaurant
+  steps:
+  - intent: faq_restaurant
+  - action: utter_faq_restaurant
+  - action: utter_anything_else
+
+- story: faq pool
+  steps:
+  - intent: faq_pool
+  - action: utter_faq_pool
+  - action: utter_anything_else
+
+- story: faq parking
+  steps:
+  - intent: faq_parking
+  - action: utter_faq_parking
+  - action: utter_anything_else
+
+- story: faq room service
+  steps:
+  - intent: faq_room_service
+  - action: utter_faq_room_service
+  - action: utter_anything_else
+
+- story: faq late checkout
+  steps:
+  - intent: faq_late_checkout
+  - action: utter_faq_late_checkout
+  - action: utter_anything_else
+
+- story: faq pet policy
+  steps:
+  - intent: faq_pet_policy
+  - action: utter_faq_pet_policy
+  - action: utter_anything_else
+
+# -----------------------------------------------
+# Combined Flows (FAQ then Room Cleaning)
+# -----------------------------------------------
+
+- story: faq then room cleaning
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: faq_amenities
+  - action: utter_faq_amenities
+  - action: utter_anything_else
+  - intent: request_room_cleaning
+  - action: utter_cleaning_request_intro
+  - action: room_cleaning_form
+  - active_loop: room_cleaning_form
+  - active_loop: null
+  - action: action_submit_room_cleaning
+  - action: utter_anything_else
+
+- story: room cleaning then faq
+  steps:
+  - intent: request_room_cleaning
+  - action: utter_cleaning_request_intro
+  - action: room_cleaning_form
+  - active_loop: room_cleaning_form
+  - active_loop: null
+  - action: action_submit_room_cleaning
+  - action: utter_anything_else
+  - intent: faq_wifi
+  - action: utter_faq_wifi
+  - action: utter_anything_else

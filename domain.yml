@@ -8,10 +8,76 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  # Room Cleaning intents
+  - request_room_cleaning
+  - provide_room_number
+  - provide_cleaning_time
+  - provide_cleaning_type
+  - cancel_room_cleaning
+  # FAQ intents
+  - faq_checkin_time
+  - faq_checkout_time
+  - faq_wifi
+  - faq_amenities
+  - faq_restaurant
+  - faq_pool
+  - faq_parking
+  - faq_room_service
+  - faq_late_checkout
+  - faq_pet_policy
+
+entities:
+  - room_number
+  - cleaning_time
+  - cleaning_type
+
+slots:
+  room_number:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: room_number
+      - type: from_text
+        conditions:
+          - active_loop: room_cleaning_form
+            requested_slot: room_number
+
+  cleaning_time:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: cleaning_time
+      - type: from_text
+        conditions:
+          - active_loop: room_cleaning_form
+            requested_slot: cleaning_time
+
+  cleaning_type:
+    type: categorical
+    values:
+      - full cleaning
+      - quick tidy
+      - fresh towels only
+      - turn down service
+    mappings:
+      - type: from_entity
+        entity: cleaning_type
+      - type: from_text
+        conditions:
+          - active_loop: room_cleaning_form
+            requested_slot: cleaning_type
+
+forms:
+  room_cleaning_form:
+    required_slots:
+      - room_number
+      - cleaning_time
+      - cleaning_type
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
+  - text: "Welcome to Grand Stay Hotel! How can I assist you today?"
+  - text: "Hello! Welcome to Grand Stay Hotel. What can I help you with?"
 
   utter_cheer_up:
   - text: "Here is something to cheer you up:"
@@ -21,13 +87,95 @@ responses:
   - text: "Did that help you?"
 
   utter_happy:
-  - text: "Great, carry on!"
+  - text: "Great, carry on! Enjoy your stay!"
 
   utter_goodbye:
-  - text: "Bye"
+  - text: "Thank you for staying with us. Goodbye and have a wonderful day!"
+  - text: "Goodbye! We hope to see you again at Grand Stay Hotel!"
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+  - text: "I am the Grand Stay Hotel virtual assistant, powered by Rasa."
+
+  # Room Cleaning Form prompts
+  utter_ask_room_number:
+  - text: "Sure! Could you please provide your room number?"
+
+  utter_ask_cleaning_time:
+  - text: "What time would you like the room to be cleaned? (e.g., 10:00 AM, 2:00 PM)"
+
+  utter_ask_cleaning_type:
+  - text: "What type of cleaning would you prefer?\n1. Full cleaning\n2. Quick tidy\n3. Fresh towels only\n4. Turn down service"
+
+  utter_cleaning_request_confirmed:
+  - text: "Your room cleaning request has been confirmed! Room {room_number} will receive a {cleaning_type} at {cleaning_time}. Our housekeeping team will be there on time."
+
+  utter_cleaning_cancelled:
+  - text: "Your room cleaning request has been cancelled. Let us know if you need anything else."
+
+  utter_cleaning_request_intro:
+  - text: "I'd be happy to schedule a room cleaning for you. Let me collect a few details."
+
+  # FAQ Responses
+  utter_faq_checkin_time:
+  - text: "Check-in time at Grand Stay Hotel is 3:00 PM. Early check-in may be available upon request, subject to room availability. Please contact the front desk to arrange this."
+
+  utter_faq_checkout_time:
+  - text: "Standard check-out time is 11:00 AM. If you need a late check-out, please contact the front desk before 9:00 AM on your departure day."
+
+  utter_faq_wifi:
+  - text: "Complimentary high-speed Wi-Fi is available throughout the hotel. Network: GrandStay_Guest | Password: welcome2024. For premium bandwidth, upgrade at the front desk."
+
+  utter_faq_amenities:
+  - text: "Grand Stay Hotel offers the following amenities:\n- Outdoor swimming pool (open 7 AM - 10 PM)\n- Fitness center (open 24 hours)\n- Spa & wellness center\n- Restaurant & bar\n- Business center\n- Concierge services\n- Free Wi-Fi\n- Parking (additional charges apply)"
+
+  utter_faq_restaurant:
+  - text: "Our in-house restaurant 'The Grand Table' serves:\n- Breakfast: 7:00 AM - 10:30 AM\n- Lunch: 12:00 PM - 3:00 PM\n- Dinner: 6:00 PM - 10:30 PM\nThe bar is open from 11:00 AM to midnight. Room service is available 24/7."
+
+  utter_faq_pool:
+  - text: "Our outdoor swimming pool is open daily from 7:00 AM to 10:00 PM. Towels are provided at the pool deck. The pool is heated and suitable for all ages. Children must be accompanied by an adult."
+
+  utter_faq_parking:
+  - text: "Valet parking is available at $25 per night. Self-parking in our secured garage is $15 per night. Electric vehicle charging stations are available. Please inform the front desk upon arrival."
+
+  utter_faq_room_service:
+  - text: "Room service is available 24 hours a day, 7 days a week. You can order by calling extension 0 from your room phone or by using our in-room tablet. A delivery charge of $5 applies between 11 PM and 6 AM."
+
+  utter_faq_late_checkout:
+  - text: "Late check-out (until 2:00 PM) is available for $30. Extended check-out until 4:00 PM is available for $60, subject to availability. Please request at the front desk before 9:00 AM on your departure day."
+
+  utter_faq_pet_policy:
+  - text: "Grand Stay Hotel is pet-friendly! We welcome dogs and cats up to 25 lbs. A non-refundable pet fee of $50 per stay applies. Pets must be kept on a leash in common areas. Please inform us at booking if you're bringing a pet."
+
+  utter_anything_else:
+  - text: "Is there anything else I can help you with?"
+  - text: "Can I assist you with anything else during your stay?"
+
+actions:
+  - action_submit_room_cleaning
+  - action_cancel_room_cleaning
+  - utter_greet
+  - utter_goodbye
+  - utter_iamabot
+  - utter_cheer_up
+  - utter_did_that_help
+  - utter_happy
+  - utter_ask_room_number
+  - utter_ask_cleaning_time
+  - utter_ask_cleaning_type
+  - utter_cleaning_request_confirmed
+  - utter_cleaning_cancelled
+  - utter_cleaning_request_intro
+  - utter_faq_checkin_time
+  - utter_faq_checkout_time
+  - utter_faq_wifi
+  - utter_faq_amenities
+  - utter_faq_restaurant
+  - utter_faq_pool
+  - utter_faq_parking
+  - utter_faq_room_service
+  - utter_faq_late_checkout
+  - utter_faq_pet_policy
+  - utter_anything_else
 
 session_config:
   session_expiration_time: 60

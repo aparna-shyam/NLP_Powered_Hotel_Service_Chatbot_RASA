@@ -16,6 +16,8 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
+    - hi there
+    - howdy
 
 - intent: goodbye
   examples: |
@@ -29,6 +31,9 @@ nlu:
     - see you around
     - bye bye
     - see you later
+    - farewell
+    - take care
+    - I'm leaving now
 
 - intent: affirm
   examples: |
@@ -38,6 +43,11 @@ nlu:
     - of course
     - that sounds good
     - correct
+    - sure
+    - absolutely
+    - yes please
+    - that's right
+    - confirmed
 
 - intent: deny
   examples: |
@@ -48,6 +58,10 @@ nlu:
     - don't like that
     - no way
     - not really
+    - nope
+    - no thanks
+    - cancel that
+    - never mind
 
 - intent: mood_great
   examples: |
@@ -89,3 +103,253 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+    - are you real?
+    - are you an AI?
+    - who are you?
+    - what are you?
+
+# -----------------------------------------------
+# Room Cleaning Intents
+# -----------------------------------------------
+
+- intent: request_room_cleaning
+  examples: |
+    - I need my room cleaned
+    - can you clean my room?
+    - please clean my room
+    - I want housekeeping in my room
+    - send housekeeping to my room
+    - I would like room cleaning service
+    - schedule a room cleaning
+    - can you send someone to clean my room?
+    - my room needs cleaning
+    - I need a room cleanup
+    - housekeeping please
+    - can I request housekeeping?
+    - I need fresh towels and a clean room
+    - please tidy up my room
+    - I want my room serviced
+    - room cleaning request
+    - can housekeeping come to my room?
+    - I'd like to schedule housekeeping
+    - can you arrange room cleaning?
+    - my room needs to be cleaned
+
+- intent: provide_room_number
+  examples: |
+    - my room number is [101](room_number)
+    - I am in room [202](room_number)
+    - room [305](room_number)
+    - it's room [410](room_number)
+    - [512](room_number)
+    - room number [108](room_number)
+    - I'm staying in [603](room_number)
+    - the room is [204](room_number)
+    - [301](room_number) is my room
+    - room [402](room_number) please
+    - I'm in [215](room_number)
+    - room [710](room_number)
+
+- intent: provide_cleaning_time
+  examples: |
+    - please come at [10:00 AM](cleaning_time)
+    - [2:00 PM](cleaning_time) would be great
+    - around [11:30 AM](cleaning_time)
+    - at [3 PM](cleaning_time)
+    - [9:00 AM](cleaning_time) please
+    - any time after [1 PM](cleaning_time)
+    - [4:00 PM](cleaning_time)
+    - [morning](cleaning_time) would be fine
+    - [afternoon](cleaning_time) please
+    - [evening](cleaning_time) works for me
+    - please come in the [morning](cleaning_time)
+    - [noon](cleaning_time)
+    - [12:00 PM](cleaning_time)
+    - sometime around [10 AM](cleaning_time)
+
+- intent: provide_cleaning_type
+  examples: |
+    - [full cleaning](cleaning_type)
+    - I want a [full cleaning](cleaning_type)
+    - [quick tidy](cleaning_type) please
+    - just a [quick tidy](cleaning_type)
+    - [fresh towels only](cleaning_type)
+    - just [fresh towels only](cleaning_type)
+    - I only need [fresh towels only](cleaning_type)
+    - [turn down service](cleaning_type)
+    - the [turn down service](cleaning_type) please
+    - full clean please
+    - I'd like a complete [full cleaning](cleaning_type)
+    - option 1
+    - option 2
+    - option 3
+    - option 4
+    - just towels
+    - deep clean
+
+- intent: cancel_room_cleaning
+  examples: |
+    - cancel my room cleaning
+    - I want to cancel housekeeping
+    - don't bother cleaning my room
+    - cancel the cleaning request
+    - I changed my mind about cleaning
+    - cancel housekeeping please
+    - I don't need cleaning anymore
+    - stop the cleaning request
+    - never mind the room cleaning
+    - please cancel my cleaning appointment
+    - I won't need housekeeping
+
+# -----------------------------------------------
+# FAQ Intents
+# -----------------------------------------------
+
+- intent: faq_checkin_time
+  examples: |
+    - what time is check-in?
+    - when can I check in?
+    - what is the check-in time?
+    - when does check-in start?
+    - can I check in early?
+    - what time do you allow check-in?
+    - what is your check-in policy?
+    - I want to know the check-in time
+    - when will my room be ready?
+    - what time is the earliest I can check in?
+    - early check-in options?
+    - when can I arrive at the hotel?
+
+- intent: faq_checkout_time
+  examples: |
+    - what time is check-out?
+    - when do I need to check out?
+    - what is the check-out time?
+    - when is the latest I can check out?
+    - what time should I leave?
+    - check-out time please
+    - when must I vacate my room?
+    - what is your check-out policy?
+    - when do I need to leave?
+    - what is the departure time?
+
+- intent: faq_wifi
+  examples: |
+    - what is the wifi password?
+    - how do I connect to wifi?
+    - is wifi available?
+    - do you have free wifi?
+    - what is the internet password?
+    - how do I get internet access?
+    - wifi details please
+    - what is the network name?
+    - is there internet in my room?
+    - can I get the wifi details?
+    - what's the wireless password?
+    - is wifi complimentary?
+    - how do I connect to the hotel network?
+
+- intent: faq_amenities
+  examples: |
+    - what amenities do you have?
+    - what facilities are available?
+    - what does the hotel offer?
+    - what services do you provide?
+    - tell me about the hotel amenities
+    - what is available at the hotel?
+    - what can I use during my stay?
+    - list all hotel facilities
+    - what are the hotel features?
+    - what amenities are included?
+    - what do you offer?
+    - hotel facilities?
+
+- intent: faq_restaurant
+  examples: |
+    - what are the restaurant hours?
+    - when is breakfast served?
+    - when does the restaurant open?
+    - do you have a restaurant?
+    - what time is breakfast?
+    - what time is dinner?
+    - when does the dining room open?
+    - tell me about the restaurant
+    - what is the meal schedule?
+    - when is lunch served?
+    - dining hours please
+    - what time can I eat?
+    - is there a bar?
+
+- intent: faq_pool
+  examples: |
+    - is there a swimming pool?
+    - what are the pool hours?
+    - when does the pool open?
+    - do you have a pool?
+    - can I use the swimming pool?
+    - when is the pool available?
+    - what time does the pool close?
+    - pool timings please
+    - is the pool heated?
+    - can children use the pool?
+    - where is the pool?
+    - pool hours?
+
+- intent: faq_parking
+  examples: |
+    - is parking available?
+    - do you have parking?
+    - how much does parking cost?
+    - where can I park my car?
+    - is there free parking?
+    - parking options please
+    - what are the parking charges?
+    - is there valet parking?
+    - do you offer valet service?
+    - where do I park?
+    - parking fee?
+    - is there a parking garage?
+
+- intent: faq_room_service
+  examples: |
+    - can I order room service?
+    - is room service available?
+    - how do I order food to my room?
+    - do you have 24 hour room service?
+    - how to get room service?
+    - I want to order food
+    - can I get food delivered to my room?
+    - what are the room service hours?
+    - how do I call for room service?
+    - room service number?
+    - how do I order from my room?
+
+- intent: faq_late_checkout
+  examples: |
+    - can I have a late checkout?
+    - how much is late checkout?
+    - can I extend my checkout time?
+    - I need more time to check out
+    - is late checkout possible?
+    - late checkout options?
+    - can I stay a bit longer?
+    - what is the late checkout fee?
+    - can I check out at 2 PM?
+    - I need to check out late
+    - late departure options?
+    - can I extend my stay?
+
+- intent: faq_pet_policy
+  examples: |
+    - are pets allowed?
+    - can I bring my dog?
+    - is the hotel pet friendly?
+    - what is your pet policy?
+    - can I bring my cat?
+    - do you allow animals?
+    - pet friendly hotel?
+    - is there a pet fee?
+    - can I bring my pet?
+    - are dogs welcome?
+    - pet charges?
+    - what pets are allowed?
