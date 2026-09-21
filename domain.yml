@@ -1,72 +1,284 @@
 version: "3.1"
 
 intents:
+  # =========================
+  # GENERAL
+  # =========================
   - greet
   - goodbye
   - affirm
   - deny
-  - mood_great
-  - mood_unhappy
   - bot_challenge
+
+  # =========================
+  # ROOM BOOKING
+  # =========================
   - book_room
+  - cancel_booking
+
+  # =========================
+  # ROOM CLEANING
+  # =========================
+  - request_cleaning
+  - immediate_cleaning
+  - scheduled_cleaning
+  - recurring_cleaning
+  - cancel_cleaning
+  - cleaning_not_now
+
+  # =========================
+  # FAQ RETRIEVAL INTENT
+  # =========================
+  - faq
+
 
 entities:
+  # Room booking
   - room_type
   - number_of_rooms
 
+  # Room cleaning
+  - cleaning_type
+  - cleaning_time
+  - cleaning_frequency
+
+
 slots:
+
+  # =====================================================
+  # ROOM BOOKING
+  # =====================================================
+
   room_type:
     type: text
+    influence_conversation: false
     mappings:
       - type: from_entity
         entity: room_type
+        not_intent:
+          - cancel_booking
+
+      - type: from_text
+        conditions:
+          - active_loop: booking_form
+            requested_slot: room_type
+        not_intent:
+          - cancel_booking
+
 
   number_of_rooms:
     type: text
+    influence_conversation: false
     mappings:
       - type: from_entity
         entity: number_of_rooms
+        not_intent:
+          - cancel_booking
+
+      - type: from_text
+        conditions:
+          - active_loop: booking_form
+            requested_slot: number_of_rooms
+        not_intent:
+          - cancel_booking
+
+
+  # =====================================================
+  # ROOM CLEANING
+  # =====================================================
+
+  cleaning_type:
+    type: text
+    mappings:
+
+    - type: from_entity
+      entity: cleaning_type
+
+    - type: from_intent
+      intent: immediate_cleaning
+      value: immediate
+
+    - type: from_intent
+      intent: scheduled_cleaning
+      value: scheduled
+
+    - type: from_intent
+      intent: recurring_cleaning
+      value: recurring
+
+  cleaning_time:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: cleaning_time
+
+  cleaning_frequency:
+    type: text
+    mappings:
+
+    - type: from_entity
+      entity: cleaning_frequency
+
+    - type: from_intent
+      intent: immediate_cleaning
+      value: once
+
+    - type: from_intent
+      intent: scheduled_cleaning
+      value: once
+
 
 responses:
 
-  utter_greet:
-    - text: "Hey! How are you?"
-
-  utter_cheer_up:
-    - text: "Here is something to cheer you up:"
-      image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-    - text: "Did that help you?"
-
-  utter_happy:
-    - text: "Great, carry on!"
+  # =====================================================
+  # GENERAL RESPONSES
+  # =====================================================
 
   utter_goodbye:
-    - text: "Bye"
+    - text: "Goodbye! Have a pleasant stay at our hotel."
 
   utter_iamabot:
-    - text: "I am a bot, powered by Rasa."
+    - text: "I am a hotel service chatbot powered by Rasa. I can help you with room bookings, cleaning requests, and hotel information."
+
+  utter_happy:
+    - text: "Great! How else can I assist you?"
+
+  utter_deny:
+    - text: "No problem. Let me know if you need anything else."
+
+
+  # =====================================================
+  # ROOM BOOKING
+  # =====================================================
 
   utter_ask_room_type:
     - text: "What type of room would you like? Simple, Deluxe, or Premium?"
 
   utter_ask_number_of_rooms:
-    - text: "How many rooms would you like to book?"
+    - text: "How many rooms would you like to book? Please choose a number between 1 and 10."
 
   utter_booking_confirmation:
-    - text: "Your booking request for {number_of_rooms} {room_type} room(s) has been recorded."
+    - text: "Your booking request for {number_of_rooms} {room_type} room(s) has been recorded. We look forward to hosting you!"
+
+
+  # =====================================================
+  # ROOM CLEANING
+  # =====================================================
+
+  utter_ask_cleaning_type:
+    - text: "Would you like immediate, scheduled, or recurring cleaning?"
+
+  utter_ask_cleaning_time:
+    - text: "What time would you like the cleaning? You can say a specific time such as 5 PM, or morning, afternoon, evening, or night."
+
+  utter_ask_cleaning_frequency:
+    - text: "How often would you like the cleaning? For example, once, daily, or weekly."
+
+  utter_cleaning_confirmation:
+    - text: "Your {cleaning_type} room cleaning request has been confirmed."
+
+  utter_cleaning_scheduled_confirmation:
+    - text: "Your room cleaning has been scheduled for {cleaning_time}."
+
+  utter_cleaning_recurring_confirmation:
+    - text: "Your {cleaning_frequency} room cleaning has been scheduled for {cleaning_time}."
+
+  utter_cleaning_cancelled:
+    - text: "No problem! Your cleaning request has been cancelled."
+
+  utter_cleaning_not_now:
+    - text: "No problem. Let me know whenever you need room cleaning."
+
+
+  # =====================================================
+  # FAQ RESPONSES
+  # =====================================================
+
+  utter_faq/ask_check_in:
+    - text: >
+        Check-in time is 2:00 PM. Early check-in may be available
+        upon request and subject to room availability.
+
+  utter_faq/ask_check_out:
+    - text: >
+        Check-out time is 12:00 PM (noon). Late check-out may be
+        available subject to availability and applicable charges.
+
+  utter_faq/ask_restaurant:
+    - text: >
+        Yes, our in-house restaurant, The Grand Dining, is open daily.
+        Breakfast is served from 7:00 AM to 10:30 AM, lunch from
+        12:30 PM to 3:00 PM, and dinner from 7:00 PM to 11:00 PM.
+        Room service is also available 24/7.
+
+  utter_faq/ask_breakfast:
+    - text: >
+        Breakfast is served daily from 7:00 AM to 10:30 AM at
+        The Grand Dining restaurant on the ground floor.
+        Guests with a breakfast package receive breakfast as part
+        of their package. Otherwise, breakfast costs INR 500 per person.
+
+  utter_faq/ask_spa:
+    - text: >
+        Our spa and wellness centre is open daily from 8:00 AM to 9:00 PM.
+        Services include massages, facials, body scrubs, and a steam room.
+        The hotel also has a swimming pool and gym.
+
+  utter_faq/ask_wifi:
+    - text: >
+        Complimentary WiFi is available throughout the hotel.
+        Network name: HotelGuest_WiFi.
+        Password: Welcome@Hotel.
+
+  utter_faq/ask_parking:
+    - text: >
+        Yes, complimentary parking is available for hotel guests.
+        Valet parking is available at the main entrance, and
+        self-parking is available in the basement.
+
 
 actions:
+
+  # Booking
   - validate_booking_form
   - action_reset_booking
+  - action_cancel_booking
+
+  # Cleaning
+  - validate_cleaning_form
+  - action_reset_cleaning
+  - action_cancel_cleaning
+  - action_cleaning_confirmation
+  - action_start_cleaning
+  - action_ask_cleaning_form_cleaning_time
+
+  # Greeting
+  - action_time_based_greeting
+
 
 forms:
+
+  # =====================================================
+  # BOOKING FORM
+  # =====================================================
+
   booking_form:
     required_slots:
       - room_type
       - number_of_rooms
 
+
+  # =====================================================
+  # CLEANING FORM
+  # =====================================================
+
+  cleaning_form:
+    required_slots:
+      - cleaning_type
+      - cleaning_frequency
+      - cleaning_time
+
+
 session_config:
   session_expiration_time: 60
-  carry_over_slots_to_new_session: true
+  carry_over_slots_to_new_session: false

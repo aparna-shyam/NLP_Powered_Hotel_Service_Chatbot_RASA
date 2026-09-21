@@ -2,29 +2,38 @@ version: "3.1"
 
 stories:
 
-- story: happy path
+- story: complete room booking
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+    - intent: book_room
+      entities:
+        - room_type: deluxe
+        - number_of_rooms: 2
+    - action: booking_form
+    - active_loop: booking_form
+    - active_loop: null
+    - action: utter_booking_confirmation
+    - action: action_reset_booking
 
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
 
-- story: sad path 2
+- story: room booking with missing information
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+    - intent: book_room
+    - action: booking_form
+    - active_loop: booking_form
+    - slot_was_set:
+        - room_type: deluxe
+    - slot_was_set:
+        - number_of_rooms: 2
+    - active_loop: null
+    - action: utter_booking_confirmation
+    - action: action_reset_booking
+
+
+- story: complete room cleaning
+  steps:
+    - intent: request_cleaning
+    - action: cleaning_form
+    - active_loop: cleaning_form
+    - active_loop: null
+    - action: action_cleaning_confirmation
+    - action: action_reset_cleaning

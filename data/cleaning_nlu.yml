@@ -1,0 +1,317 @@
+version: "3.1"
+
+nlu:
+
+# ============================================================
+# GENERAL CLEANING REQUEST
+# ============================================================
+
+- intent: request_cleaning
+  examples: |
+
+    - Please clean my room
+    - I need my room cleaned
+    - Can you send housekeeping?
+    - I need room cleaning
+    - I want room cleaning
+    - My room needs cleaning
+    - Please tidy my room
+    - I need housekeeping
+    - Can someone clean my room?
+    - Send someone to clean my room
+    - I want housekeeping
+    - I need housekeeping service
+    - Mera room clean karo
+    - Room cleaning chahiye
+    - Mera room saaf karo
+    - Mera room saaf karo please
+    - Housekeeping bhej do
+    - Mujhe room cleaning chahiye
+    - Mujhe room saaf karwana hai
+    - Room saaf kar do
+    - Room clean kar do
+
+
+# ============================================================
+# CLEANING NOT NOW / DEFERRED
+# ============================================================
+
+- intent: cleaning_not_now
+  examples: |
+    - not now
+    - I don't want cleaning now
+    - I don't need cleaning now
+    - not immediately
+    - don't clean it now
+    - cleaning not now
+
+
+# ============================================================
+# IMMEDIATE CLEANING
+# ============================================================
+
+- intent: immediate_cleaning
+  examples: |
+
+    - I need cleaning [immediately](cleaning_time)
+    - I want [immediate](cleaning_type) room cleaning
+    - Clean my room [immediately](cleaning_time)
+    - Clean my room [now](cleaning_time)
+    - Clean my room [right now](cleaning_time)
+    - I need cleaning [now](cleaning_time)
+    - I need cleaning [right now](cleaning_time)
+    - I need my room cleaned [immediately](cleaning_time)
+    - Please clean my room [now](cleaning_time)
+    - Send housekeeping [now](cleaning_time)
+    - I need cleaning right now
+    - I need room cleaning right now
+    - Clean my room right now
+    - I want cleaning now
+    - I need cleaning immediately
+    - Clean my room immediately
+    - Please clean my room now
+    - Send housekeeping right now
+    - Send housekeeping immediately
+
+
+    # Hinglish
+
+    - Mujhe room cleaning chahiye [abhi](cleaning_time)
+    - [Abhi](cleaning_time) cleaning chahiye
+    - Mera room [abhi](cleaning_time) clean karo
+    - Room cleaning [abhi](cleaning_time) chahiye
+    - [Abhi](cleaning_time) room saaf karo
+    - Mujhe [abhi](cleaning_time) room saaf karwana hai
+    - Mujhe abhi cleaning chahiye
+    - Abhi room clean karo
+    - Mera room abhi clean karo
+    - Mujhe abhi room saaf karwana hai
+    - Abhi room saaf karo
+
+
+# ============================================================
+# SCHEDULED CLEANING
+# ============================================================
+
+- intent: scheduled_cleaning
+  examples: |
+
+    - I want [scheduled](cleaning_type) cleaning
+    - I need [scheduled](cleaning_type) cleaning
+    - Schedule a room cleaning
+    - Schedule cleaning for [2 PM](cleaning_time)
+    - Schedule cleaning for [5 PM](cleaning_time)
+    - Please schedule cleaning at [3 PM](cleaning_time)
+    - I want scheduled cleaning at [4 PM](cleaning_time)
+    - Clean my room at [2 PM](cleaning_time)
+    - Clean my room at [3 PM](cleaning_time)
+    - Please clean my room at [4 PM](cleaning_time)
+    - I want my room cleaned at [5 PM](cleaning_time)
+    - I need cleaning at [6 PM](cleaning_time)
+    - I want cleaning at [5 PM](cleaning_time)
+    - I need cleaning at [5 PM](cleaning_time)
+    - I need housekeeping at [3 PM](cleaning_time)
+    - Schedule cleaning at [4 PM](cleaning_time)
+    - I want room cleaning at [6 PM](cleaning_time)
+    - Clean my room at [8 PM](cleaning_time)
+
+    # General time-based cleaning
+
+    - Schedule cleaning for the [morning](cleaning_time)
+    - Schedule cleaning for the [afternoon](cleaning_time)
+    - Schedule cleaning for the [evening](cleaning_time)
+    - I want cleaning in the [morning](cleaning_time)
+    - I want cleaning in the [evening](cleaning_time)
+    - I want cleaning in the [afternoon](cleaning_time)
+    - I want cleaning at [night](cleaning_time)
+
+    # Hinglish
+
+    - [Scheduled](cleaning_type) cleaning chahiye [morning](cleaning_time) mein
+    - Mujhe [5 PM](cleaning_time) par cleaning chahiye
+    - Mujhe [10 AM](cleaning_time) par cleaning chahiye
+    - [5 PM](cleaning_time) par room clean karo
+    - [3 PM](cleaning_time) par cleaning chahiye
+    - [4 PM](cleaning_time) par room saaf karo
+    - Mujhe [subah](cleaning_time) cleaning chahiye
+    - Mujhe [shaam](cleaning_time) cleaning chahiye
+    - Mujhe [raat](cleaning_time) cleaning chahiye
+    - [2 PM](cleaning_time) par room clean karna
+
+
+# ============================================================
+# RECURRING CLEANING
+# ============================================================
+
+- intent: recurring_cleaning
+  examples: |
+
+    - I want [recurring](cleaning_type) cleaning
+    - I need [recurring](cleaning_type) cleaning
+
+    - I want cleaning [every day](cleaning_frequency)
+    - I want room cleaning [every day](cleaning_frequency)
+    - I need cleaning [every day](cleaning_frequency)
+    - I want [daily](cleaning_frequency) cleaning
+    - I need [daily](cleaning_frequency) cleaning
+
+    - I want room cleaning [every week](cleaning_frequency)
+    - I want cleaning [every week](cleaning_frequency)
+    - I need [weekly](cleaning_frequency) cleaning
+
+    - I want room cleaning [every month](cleaning_frequency)
+    - I want [monthly](cleaning_frequency) cleaning
+
+    - Set up [daily](cleaning_frequency) cleaning
+    - Set up [weekly](cleaning_frequency) cleaning
+    - Set up [daily](cleaning_frequency) housekeeping
+    - I need cleaning [daily](cleaning_frequency)
+    - I want cleaning [every day](cleaning_frequency)
+    - I need cleaning [every day](cleaning_frequency)
+    - I need [weekly](cleaning_frequency) housekeeping
+    - I want cleaning [every week](cleaning_frequency)
+
+
+    - [Daily](cleaning_frequency) cleaning set karo
+    - [Roz](cleaning_frequency) cleaning chahiye
+    - [Har roz](cleaning_frequency) cleaning chahiye
+    - [Har din](cleaning_frequency) cleaning chahiye
+    - [Har din](cleaning_frequency) room clean karo
+    - [Roz](cleaning_frequency) room saaf karo
+    - [Har roz](cleaning_frequency) room saaf karo
+    - [Har din](cleaning_frequency) room saaf karo
+    - Mujhe [daily](cleaning_frequency) cleaning chahiye
+    - Mujhe [weekly](cleaning_frequency) cleaning chahiye
+    - Mujhe [roz](cleaning_frequency) cleaning chahiye
+    - Mujhe [har roz](cleaning_frequency) cleaning chahiye
+    - Mujhe [har din](cleaning_frequency) cleaning chahiye
+    - [Roz](cleaning_frequency) room clean karo
+    - [Har roz](cleaning_frequency) room clean karo
+    - [Har din](cleaning_frequency) room clean karo
+
+    - I want room cleaning [every day](cleaning_frequency) at [10 PM](cleaning_time)
+    - I want room cleaning [every day](cleaning_frequency) at [10 AM](cleaning_time)
+    - I want room cleaning [every week](cleaning_frequency) at [10 PM](cleaning_time)
+    - I want room cleaning [every week](cleaning_frequency) at [5 PM](cleaning_time)
+    - I want room cleaning [every month](cleaning_frequency) at [10 PM](cleaning_time)
+    - I want [daily](cleaning_frequency) cleaning in the [morning](cleaning_time)
+    - I want [daily](cleaning_frequency) cleaning in the [evening](cleaning_time)
+    - I want cleaning [every day](cleaning_frequency) at [5 PM](cleaning_time)
+    - I want cleaning [every day](cleaning_frequency) at [10 AM](cleaning_time)
+    - I need [daily](cleaning_frequency) housekeeping in the [morning](cleaning_time)
+    - I want cleaning every [morning](cleaning_time)
+    - I want cleaning every [evening](cleaning_time)
+    - Room cleaning [daily](cleaning_frequency) in the [morning](cleaning_time)
+    - I want [recurring](cleaning_type) cleaning every [morning](cleaning_time)
+
+    - [Roz](cleaning_frequency) [subah](cleaning_time) room saaf karo
+    - Mujhe [roz](cleaning_frequency) [subah](cleaning_time) cleaning chahiye
+    - Mujhe [har roz](cleaning_frequency) [subah](cleaning_time) cleaning chahiye
+    - Mujhe [har din](cleaning_frequency) [subah](cleaning_time) room saaf chahiye
+    - [Roz](cleaning_frequency) [subah](cleaning_time) room clean karo
+    - [Har roz](cleaning_frequency) [shaam](cleaning_time) room clean karo
+    - Mujhe [daily](cleaning_frequency) [morning](cleaning_time) cleaning chahiye
+
+    - [Har shaam](cleaning_frequency) room clean karo
+# ============================================================
+# CANCEL CLEANING
+# ============================================================
+
+- intent: cancel_cleaning
+  examples: |
+
+    - cancel the cleaning
+    - cancel my cleaning
+    - cancel housekeeping
+    - cancel my housekeeping request
+    - cancel the cleaning request
+    - please cancel cleaning
+    - I want to cancel cleaning
+    - stop the cleaning
+    - cancel it
+    - cancel it please
+    - cancel this request
+    - stop the cleaning request
+    - never mind the cleaning
+    - forget the cleaning
+    - don't clean my room
+    - I don't need cleaning anymore
+    - I don't want cleaning
+    - don't bother cleaning
+
+
+    - cleaning cancel karo
+    - cleaning cancel kar do
+    - room cleaning cancel karo
+    - housekeeping cancel karo
+    - mujhe cleaning nahi chahiye
+    - cleaning nahi chahiye
+    - rehne do
+    - mat karo
+    - nahi chahiye
+    - band karo
+    - cancel kar do
+
+# ============================================================
+# CLEANING TYPE LOOKUP
+# ============================================================
+
+- lookup: cleaning_type
+  examples: |
+    - immediate
+    - scheduled
+    - recurring
+    - schedule
+
+# ============================================================
+# CLEANING TIME LOOKUP
+# ============================================================
+
+- lookup: cleaning_time
+  examples: |
+    - now
+    - right now
+    - immediately
+    - abhi
+    - morning
+    - afternoon
+    - evening
+    - night
+    - 8 AM
+    - 9 AM
+    - 10 AM
+    - 11 AM
+    - 12 PM
+    - 1 PM
+    - 2 PM
+    - 3 PM
+    - 4 PM
+    - 5 PM
+    - 6 PM
+    - 7 PM
+    - 8 PM
+    - subah
+    - dopahar
+    - shaam
+    - raat
+
+# ============================================================
+# CLEANING FREQUENCY LOOKUP
+# ============================================================
+
+- lookup: cleaning_frequency
+  examples: |
+    - once
+    - one time
+    - one-time
+    - daily
+    - every day
+    - weekly
+    - every week
+    - monthly
+    - every month
+    - roz
+    - har roz
+    - har din
+    - ek baar
+    - har shaam

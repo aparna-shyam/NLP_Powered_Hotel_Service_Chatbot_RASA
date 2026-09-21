@@ -1,0 +1,76 @@
+version: "3.1"
+
+stories:
+
+# ============================================================
+# CLEANING STORIES
+# ============================================================
+
+# ------------------------------------------------------------
+# Immediate cleaning
+# ------------------------------------------------------------
+
+- story: immediate cleaning request
+  steps:
+    - intent: immediate_cleaning
+    - action: cleaning_form
+    - active_loop: cleaning_form
+    - active_loop: null
+    - action: action_cleaning_confirmation
+    - action: action_reset_cleaning
+
+
+# ------------------------------------------------------------
+# Scheduled cleaning
+# ------------------------------------------------------------
+
+- story: scheduled cleaning with time
+  steps:
+    - intent: scheduled_cleaning
+    - action: cleaning_form
+    - active_loop: cleaning_form
+    - active_loop: null
+    - action: action_cleaning_confirmation
+    - action: action_reset_cleaning
+
+
+# ------------------------------------------------------------
+# Recurring cleaning
+# ------------------------------------------------------------
+
+- story: recurring daily cleaning
+  steps:
+    - intent: recurring_cleaning
+    - action: cleaning_form
+    - active_loop: cleaning_form
+    - active_loop: null
+    - action: action_cleaning_confirmation
+    - action: action_reset_cleaning
+
+
+# ------------------------------------------------------------
+# General cleaning request
+# ------------------------------------------------------------
+
+- story: general cleaning request
+  steps:
+    - intent: request_cleaning
+    - action: cleaning_form
+    - active_loop: cleaning_form
+    - active_loop: null
+    - action: action_cleaning_confirmation
+    - action: action_reset_cleaning
+
+
+# ------------------------------------------------------------
+# Cleaning request followed by cancellation
+# ------------------------------------------------------------
+
+- story: cleaning request then cancel
+  steps:
+    - intent: request_cleaning
+    - action: cleaning_form
+    - active_loop: cleaning_form
+    - intent: cancel_cleaning
+    - action: action_cancel_cleaning
+    - active_loop: null

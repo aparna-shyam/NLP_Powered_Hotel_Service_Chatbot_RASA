@@ -1,0 +1,165 @@
+version: "3.1"
+
+nlu:
+
+# ============================================================
+# CHECK-IN
+# ============================================================
+
+- intent: faq/ask_check_in
+  examples: |
+    - What time is check-in?
+    - When can I check in?
+    - What is the check-in time?
+    - Can I check in early?
+    - What time does check-in start?
+    - When does check-in begin?
+    - Is early check-in available?
+    - What is the earliest check-in time?
+    - What are the check-in hours?
+    - Check-in time please
+    - Tell me about check-in
+    - Check in kab hoga?
+    - Check in time kya hai?
+    - Kab check in kar sakte hain?
+    - Mujhe check in time batao
+
+
+# ============================================================
+# CHECK-OUT
+# ============================================================
+
+- intent: faq/ask_check_out
+  examples: |
+    - What time is check-out?
+    - When do I need to check out?
+    - What is the check-out time?
+    - Can I get a late check-out?
+    - What time must I vacate the room?
+    - When is check-out time?
+    - Is late check-out available?
+    - What is the latest check-out time?
+    - What are the check-out hours?
+    - Check-out time please
+    - Tell me about check-out
+    - Check out kab karna hai?
+    - Check out time kya hai?
+    - Late check out milega?
+    - Mujhe check out time batao
+
+
+# ============================================================
+# RESTAURANT
+# ============================================================
+
+- intent: faq/ask_restaurant
+  examples: |
+    - Does the hotel have a restaurant?
+    - What are the restaurant hours?
+    - What time does the restaurant open?
+    - When does the restaurant close?
+    - Where is the hotel restaurant?
+    - What kind of food does the restaurant serve?
+    - Is there an in-house restaurant?
+    - Can I make a reservation at the restaurant?
+    - Does the restaurant take reservations?
+    - Tell me about the restaurant
+    - What cuisine does the restaurant offer?
+    - Is room service available?
+    - Do you serve food in the room?
+    - Restaurant ke baare mein batao
+    - Hotel mein restaurant hai?
+    - Khana kahan milega?
+    - Restaurant ka time kya hai?
+    - Kya room service milegi?
+
+
+# ============================================================
+# BREAKFAST
+# ============================================================
+
+- intent: faq/ask_breakfast
+  examples: |
+    - Is breakfast included?
+    - What time is breakfast served?
+    - When does breakfast start?
+    - When does breakfast end?
+    - Is breakfast complimentary?
+    - Do you serve breakfast?
+    - What is included in breakfast?
+    - Is there a breakfast buffet?
+    - Where is breakfast served?
+    - What time is the breakfast buffet?
+    - Can I have breakfast in my room?
+    - Is breakfast free?
+    - Tell me about breakfast
+    - Breakfast kab milega?
+    - Kya breakfast included hai?
+    - Breakfast ka time kya hai?
+    - Breakfast free hai kya?
+    - Nasta kab milega?
+    - Subah ka khana kab milega?
+
+
+# ============================================================
+# SPA
+# ============================================================
+
+- intent: faq/ask_spa
+  examples: |
+    - Does the hotel have a spa?
+    - What are the spa hours?
+    - When is the spa open?
+    - How do I book a spa appointment?
+    - Can I book a spa session?
+    - What spa services are available?
+    - What treatments does the spa offer?
+    - Is there a swimming pool?
+    - Do you have a gym?
+    - Tell me about spa services
+    - What are the wellness facilities?
+    - Does the spa need a reservation?
+    - Is the spa complimentary?
+    - Spa ke baare mein batao
+    - Kya hotel mein spa hai?
+    - Spa kab khulta hai?
+    - Spa appointment kaise book karein?
+    - Kya pool bhi hai?
+    - Swimming pool hai kya?
+
+
+# ============================================================
+# WIFI
+# ============================================================
+
+- intent: faq/ask_wifi
+  examples: |
+    - Is WiFi available?
+    - What is the WiFi password?
+    - Do you have free WiFi?
+    - How do I connect to WiFi?
+    - Is internet available in the room?
+    - What is the WiFi network name?
+    - Is WiFi complimentary?
+    - WiFi ka password kya hai?
+    - Kya WiFi free hai?
+    - Internet connection kaise milega?
+
+
+# ============================================================
+# PARKING
+# ============================================================
+
+- intent: faq/ask_parking
+  examples: |
+    - Is parking available?
+    - Do you have a parking lot?
+    - Is parking free?
+    - Where can I park my car?
+    - Do you offer valet parking?
+    - What is the parking charge?
+    - Is there secure parking?
+    - Parking kahan hai?
+    - Kya parking free hai?
+    - Gaadi kahan lagaun?
+    - Valet parking milegi kya?

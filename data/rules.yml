@@ -2,27 +2,163 @@ version: "3.1"
 
 rules:
 
-- rule: Say hello
-  steps:
-  - intent: greet
-  - action: utter_greet
+# ============================================================
+# GENERAL
+# ============================================================
 
-- rule: Say goodbye
+- rule: Respond to greeting
   steps:
-  - intent: goodbye
-  - action: utter_goodbye
+    - intent: greet
+    - action: action_time_based_greeting
+
+
+- rule: Respond to goodbye
+  steps:
+    - intent: goodbye
+    - action: utter_goodbye
+
+
+- rule: Respond to bot challenge
+  steps:
+    - intent: bot_challenge
+    - action: utter_iamabot
+
+
+- rule: Respond to affirmation
+  steps:
+    - intent: affirm
+    - action: utter_happy
+
+
+- rule: Respond to denial
+  steps:
+    - intent: deny
+    - action: utter_deny
+
+
+# ============================================================
+# ROOM BOOKING
+# ============================================================
 
 - rule: Activate booking form
   steps:
-  - intent: book_room
-  - action: booking_form
-  - active_loop: booking_form
+    - intent: book_room
+    - action: booking_form
+    - active_loop: booking_form
+
 
 - rule: Submit booking form
   condition:
-  - active_loop: booking_form
+    - active_loop: booking_form
   steps:
-  - action: booking_form
-  - active_loop: null
-  - action: utter_booking_confirmation
-  - action: action_reset_booking
+    - action: booking_form
+    - active_loop: null
+    - action: utter_booking_confirmation
+    - action: action_reset_booking
+
+
+- rule: Cancel booking during form
+  condition:
+    - active_loop: booking_form
+  steps:
+    - intent: cancel_booking
+    - action: action_cancel_booking
+    - active_loop: null
+
+# ============================================================
+# ROOM CLEANING
+# ============================================================
+
+# ------------------------------------------------------------
+# General cleaning request
+# ------------------------------------------------------------
+
+- rule: Start general cleaning request
+  steps:
+    - intent: request_cleaning
+    - action: cleaning_form
+    - active_loop: cleaning_form
+
+
+# ------------------------------------------------------------
+# Immediate cleaning
+# ------------------------------------------------------------
+
+- rule: Start immediate cleaning
+  steps:
+    - intent: immediate_cleaning
+    - action: cleaning_form
+    - active_loop: cleaning_form
+
+
+# ------------------------------------------------------------
+# Scheduled cleaning
+# ------------------------------------------------------------
+
+- rule: Start scheduled cleaning
+  steps:
+    - intent: scheduled_cleaning
+    - action: cleaning_form
+    - active_loop: cleaning_form
+
+
+# ------------------------------------------------------------
+# Recurring cleaning
+# ------------------------------------------------------------
+
+- rule: Start recurring cleaning
+  steps:
+    - intent: recurring_cleaning
+    - action: cleaning_form
+    - active_loop: cleaning_form
+
+
+# ------------------------------------------------------------
+# Cancel cleaning
+# ------------------------------------------------------------
+
+- rule: Cancel cleaning
+  condition:
+    - active_loop: cleaning_form
+  steps:
+    - intent: cancel_cleaning
+    - action: action_cancel_cleaning
+    - active_loop: null
+
+
+# ------------------------------------------------------------
+# Submit cleaning form
+# ------------------------------------------------------------
+
+- rule: Submit cleaning form
+  condition:
+    - active_loop: cleaning_form
+  steps:
+    - action: cleaning_form
+    - active_loop: null
+    - action: action_cleaning_confirmation
+    - action: action_reset_cleaning
+
+# ============================================================
+# FAQs
+# ============================================================
+
+- rule: Answer FAQ
+  steps:
+    - intent: faq
+    - action: utter_faq
+
+- rule: Cleaning not now
+  condition:
+    - active_loop: cleaning_form
+  steps:
+    - intent: cleaning_not_now
+    - action: utter_cleaning_not_now
+    - active_loop: null
+
+- rule: Cleaning not now without form
+  condition:
+    - active_loop: null
+  steps:
+    - intent: cleaning_not_now
+    - action: utter_cleaning_not_now

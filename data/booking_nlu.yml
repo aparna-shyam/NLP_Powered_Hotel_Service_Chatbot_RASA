@@ -2,43 +2,148 @@ version: "3.1"
 
 nlu:
 
+# ============================================================
+# CANCEL BOOKING
+# ============================================================
+
+- intent: cancel_booking
+  examples: |
+    - cancel
+    - cancel my booking
+    - cancel the booking
+    - cancel the room booking
+    - cancel my room reservation
+    - cancel the reservation
+    - I want to cancel
+    - I want to cancel the booking
+    - I do not want to book anymore
+    - I don't want the booking
+    - I don't want to book anymore
+    - I changed my mind
+    - forget the room booking
+    - cancel it
+    - stop the booking
+    - booking cancel karo
+    - room booking cancel karo
+    - mujhe booking nahi chahiye
+    - booking cancel kar do
+    - room reserve nahi karna
+    - reservation cancel karo
+    - room booking cancel kar do
+    - room book nahi karna
+
+
+# ============================================================
+# BOOK ROOM
+# ============================================================
+
 - intent: book_room
   examples: |
-    - I want to book a room
+
+    # General English
     - I want to book a room
     - I need a room
     - I would like to reserve a room
     - I want to make a room reservation
     - Can I book a room?
     - I need to reserve a room
-    - I want to reserve [2](number_of_rooms) rooms
-    - Book [1](number_of_rooms) room for me
+    - I want to reserve a room
+    - I would like to book a room
+    - I need accommodation
+    - I want to reserve a hotel room
+
+    # Number only
+    - I want [1](number_of_rooms) room
     - I want [2](number_of_rooms) rooms
     - I need [3](number_of_rooms) rooms
-    - I want to book a [simple](room_type) room
+    - Book [1](number_of_rooms) room
+    - Book [2](number_of_rooms) rooms
+    - Reserve [3](number_of_rooms) rooms
+    - I need [4](number_of_rooms) rooms
+    - I want [5](number_of_rooms) rooms
+
+    # Room type only
+    - I want a [simple](room_type) room
     - I want a [deluxe](room_type) room
-    - Book a [premium](room_type) room
+    - I want a [premium](room_type) room
     - I need a [simple](room_type) room
-    - I want to reserve a [deluxe](room_type) room
-    - Can I book a [premium](room_type) room?
+    - I need a [deluxe](room_type) room
+    - I need a [premium](room_type) room
+    - Book a [simple](room_type) room
+    - Book a [deluxe](room_type) room
+    - Book a [premium](room_type) room
+
+    # Number + room type
     - I want [2](number_of_rooms) [deluxe](room_type) rooms
-    - Book [3](number_of_rooms) [simple](room_type) rooms
+    - I want [3](number_of_rooms) [simple](room_type) rooms
     - I need [2](number_of_rooms) [premium](room_type) rooms
+    - Book [3](number_of_rooms) [simple](room_type) rooms
+    - Book [4](number_of_rooms) [premium](room_type) rooms
     - Reserve [1](number_of_rooms) [deluxe](room_type) room
-    - Mujhe ek room book karna hai
-    - Mujhe [2](number_of_rooms) rooms chahiye
-    - Mujhe [2](number_of_rooms) [deluxe](room_type) rooms book karne hain
-    - Ek [simple](room_type) room chahiye
+    - Reserve [5](number_of_rooms) [simple](room_type) rooms
+    - I want [6](number_of_rooms) [deluxe](room_type) rooms
+    - I need [8](number_of_rooms) [simple](room_type) rooms
+
+    # Number words
+    - I want [one](number_of_rooms) room
+    - I want [two](number_of_rooms) rooms
+    - I want [three](number_of_rooms) rooms
+    - I want [four](number_of_rooms) rooms
+    - I want [five](number_of_rooms) rooms
+    - I want [six](number_of_rooms) rooms
+    - I want [seven](number_of_rooms) rooms
+    - I want [eight](number_of_rooms) rooms
+    - I want [nine](number_of_rooms) rooms
+    - I want [ten](number_of_rooms) rooms
+    - Book [one](number_of_rooms) room
+    - Book [two](number_of_rooms) rooms
+    - Reserve [three](number_of_rooms) rooms
+
+    # Hinglish
+    - Mujhe [ek](number_of_rooms) room book karna hai
+    - Mujhe [do](number_of_rooms) rooms chahiye
+    - Mujhe [teen](number_of_rooms) rooms chahiye
+    - Mujhe [chaar](number_of_rooms) rooms chahiye
+    - Mujhe [panch](number_of_rooms) rooms chahiye
+    - Mujhe [che](number_of_rooms) rooms chahiye
+    - Mujhe [saat](number_of_rooms) rooms chahiye
+    - Mujhe [aat](number_of_rooms) rooms chahiye
+    - Mujhe [nou](number_of_rooms) rooms chahiye
+    - Mujhe [das](number_of_rooms) rooms chahiye
+
+    # Hinglish + room type
+    - Mujhe [ek](number_of_rooms) [simple](room_type) room chahiye
+    - Mujhe [do](number_of_rooms) [deluxe](room_type) rooms chahiye
+    - Mujhe [teen](number_of_rooms) [premium](room_type) rooms chahiye
+    - Mujhe [chaar](number_of_rooms) [simple](room_type) rooms chahiye
+    - Mujhe [panch](number_of_rooms) [premium](room_type) rooms chahiye
+    - Mujhe [che](number_of_rooms) [deluxe](room_type) rooms chahiye
+    - Mujhe [saat](number_of_rooms) [simple](room_type) rooms chahiye
+    - Mujhe [aat](number_of_rooms) [premium](room_type) rooms chahiye
+    - Mujhe [nou](number_of_rooms) [deluxe](room_type) rooms chahiye
+    - Mujhe [das](number_of_rooms) [simple](room_type) rooms chahiye
+    - [do](number_of_rooms) [simple](room_type) rooms book kar do
+    - [teen](number_of_rooms) [deluxe](room_type) rooms book kar do
+    - [panch](number_of_rooms) [premium](room_type) rooms book kar do
     - Mujhe [premium](room_type) room chahiye
-    - [3](number_of_rooms) [deluxe](room_type) rooms book kar do
-    - Bhai [2](number_of_rooms) rooms book karne hain
-    - Mujhe [1](number_of_rooms) [simple](room_type) room chahiye
+    - Mujhe [deluxe](room_type) room chahiye
+    - Mujhe [simple](room_type) room chahiye
+
+
+# ============================================================
+# ROOM TYPE LOOKUP
+# ============================================================
 
 - lookup: room_type
   examples: |
     - simple
     - deluxe
     - premium
+
+
+# ============================================================
+# NUMBER LOOKUP
+# ============================================================
 
 - lookup: number_of_rooms
   examples: |
@@ -47,8 +152,28 @@ nlu:
     - 3
     - 4
     - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
     - one
     - two
     - three
     - four
     - five
+    - six
+    - seven
+    - eight
+    - nine
+    - ten
+    - ek
+    - do
+    - teen
+    - chaar
+    - panch
+    - che
+    - saat
+    - aat
+    - nou
+    - das

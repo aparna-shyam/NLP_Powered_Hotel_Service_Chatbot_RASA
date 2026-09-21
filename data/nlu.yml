@@ -1,87 +1,94 @@
 version: "3.1"
 
 nlu:
+
+# ============================================================
+# GREETING
+# ============================================================
+
 - intent: greet
   examples: |
-    - hey
-    - hello
     - hi
+    - hello
+    - hey
     - hello there
-    - good morning
-    - good evening
-    - moin
     - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
+    - good morning
     - good afternoon
+    - good evening
+    - good night
+    - hi there
+    - hello hotel
+    - namaste
+    - namaskar
+    - hello ji
+    - hi ji
+    - good morning ji
+    - good evening ji
+
+
+# ============================================================
+# GOODBYE
+# ============================================================
 
 - intent: goodbye
   examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
     - bye
     - goodbye
-    - have a nice day
+    - see you later
+    - see you
     - see you around
     - bye bye
-    - see you later
+    - good night
+    - have a nice day
+    - thank you goodbye
+    - thanks bye
+    - alvida
+    - phir milenge
+
+
+# ============================================================
+# AFFIRM
+# ============================================================
 
 - intent: affirm
   examples: |
     - yes
+    - yeah
+    - yep
     - y
-    - indeed
-    - of course
-    - that sounds good
     - correct
+    - that's right
+    - yes please
+    - okay
+    - ok
+    - sure
+    - haan
+    - ji haan
+
+
+# ============================================================
+# DENY
+# ============================================================
 
 - intent: deny
   examples: |
     - no
+    - nope
     - n
     - never
+    - no thanks
     - I don't think so
-    - don't like that
-    - no way
     - not really
+    - no way
+    - nahi
+    - nahi chahiye
+    - bilkul nahi
 
-- intent: mood_great
-  examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
 
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
+# ============================================================
+# BOT CHALLENGE
+# ============================================================
 
 - intent: bot_challenge
   examples: |
@@ -89,3 +96,6 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+    - who are you?
+    - what are you?
+    - are you an AI?
