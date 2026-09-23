@@ -19,12 +19,22 @@ nlu:
     - good night
     - hi there
     - hello hotel
+    - hey chatbot
+    - hi chatbot
+    - hello there hotel
+    - hiya
+    - howdy
     - namaste
     - namaskar
     - hello ji
     - hi ji
     - good morning ji
     - good evening ji
+    - namaste ji
+    - aapka swagat hai
+    - hey, aap kaise hain
+    - kaise ho
+    - aap kaise hain
 
 
 # ============================================================
@@ -43,8 +53,16 @@ nlu:
     - have a nice day
     - thank you goodbye
     - thanks bye
+    - thank you, bye
+    - thanks, goodbye
+    - good night, kal milte hain
     - alvida
     - phir milenge
+    - kal milte hain
+    - tab tak
+    - bye, take care
+    - goodbye, take care
+    - shukriya, bye
 
 
 # ============================================================

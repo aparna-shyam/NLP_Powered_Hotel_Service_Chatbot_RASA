@@ -1,5 +1,6 @@
 # Python virtual environment
 .venv/
+venv310/
 
 # Rasa cache and local files
 .rasa/
@@ -10,6 +11,9 @@ models/
 # Python cache
 __pycache__/
 *.pyc
+
+# Runtime feedback store
+data/feedback_store.json
 
 # IDE files
 .vscode/

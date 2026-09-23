@@ -1,3 +1,5 @@
+import json
+import os
 import re
 from datetime import datetime
 from typing import Any, Text, Dict, List
@@ -837,4 +839,166 @@ class ActionStartCleaning(Action):
             SlotSet("cleaning_type", cleaning_type),
             SlotSet("cleaning_time", cleaning_time),
             SlotSet("cleaning_frequency", cleaning_freq),
+        ]
+
+
+# ============================================================
+# PERSON 3 — GUEST FEEDBACK & SENTIMENT ANALYSIS
+# ============================================================
+
+# Lightweight keyword-based sentiment analysis.
+# Uses English + Hinglish positive/negative cues. No heavy ML framework
+# required; this simple, reliable approach is sufficient for the use case.
+
+POSITIVE_WORDS = [
+    "excellent", "amazing", "fantastic", "great", "wonderful", "loved",
+    "happy", "best", "perfect", "good", "nice", "delicious", "helpful",
+    "clean", "beautiful", "comfortable", "enjoyed", "awesome", "superb",
+    "friendly", "pleased", "satisfied", "love", "enjoy", "like", "liked",
+    "good stay", "well", "wonderful", "brilliant", "fabulous",
+    # Hinglish
+    "acha", "achha", "accha", "achhi", "badhiya", "bahut acha",
+    "bahut achha", "bahut accha", "bahut achhi", "pasand", "pasand aaya",
+    "badhiya", "mast", "shaandar", "behtareen", "umda", "khush",
+    "helpful", "sundar",
+]
+
+NEGATIVE_WORDS = [
+    "dirty", "terrible", "bad", "poor", "awful", "horrible", "worst",
+    "unhappy", "disappointed", "rude", "uncomfortable", "noisy",
+    "not clean", "didn't like", "did not like", "hate", "hated",
+    "unpleasant", "problem", "complaint", "dissatisfied", "average at best",
+    # Hinglish
+    "kharab", "ganda", "gandi", "bekar", "behuda", "bura", "buri",
+    "acha nahi laga", "achha nahi laga", "pasand nahi",
+    "saaf nahi", "clean nahi", "rude", "shor", "kharab thi", "kharaab",
+]
+
+NEUTRAL_WORDS = [
+    "okay", "ok", "average", "fine", "alright", "decent", "satisfactory",
+    "neither", "so-so", "normal", "usual", "neutral", "okayish",
+    # Hinglish
+    "theek", "theek tha", "theek hai", "thik", "thik tha", "thik hai",
+]
+
+INSIGNIFICANT_WORDS = [
+    "room", "the", "was", "were", "is", "are", "i", "my", "me", "we",
+    "you", "it", "to", "of", "and", "a", "an", "with", "had", "have",
+    "hotel", "stay", "service", "tha", "thi", "hai", "mein", "bahut",
+    "very", "really", "ke", "ki", "ka", "ko", "se", "ne", "bhi", "to",
+]
+
+
+def _sentiment(text: Text) -> Text:
+    """Returns 'positive', 'negative' or 'neutral' for the given text."""
+    if not text:
+        return "neutral"
+
+    lower = text.lower()
+
+    positives = 0
+    negatives = 0
+
+    tokens = re.findall(r"[a-z']+", lower)
+
+    NEGATORS = {"not", "no", "never", "nahi", "na", "nahin",
+                "didn't", "didnt", "don't", "dont", "doesn't", "doesnt"}
+
+    for i, tok in enumerate(tokens):
+        negated = (i > 0 and tokens[i - 1] in NEGATORS)
+        if tok in POSITIVE_WORDS:
+            if negated:
+                negatives += 1
+            else:
+                positives += 1
+        elif tok in NEGATIVE_WORDS:
+            if negated:
+                # e.g. "not unhappy" -> mildly positive
+                positives += 1
+            else:
+                negatives += 1
+
+    # Phrase-level checks that token splitting might miss.
+    if re.search(r"\bnot\s+clean\b|\bclean\s+nahi\b|\bsaaf\s+nahi\b", lower):
+        negatives += 1
+    if re.search(r"\bnot\s+(good|nice|acha|accha|achha)\b", lower):
+        negatives += 1
+
+    if positives > negatives:
+        return "positive"
+    if negatives > positives:
+        return "negative"
+    return "neutral"
+
+
+def _store_feedback(feedback: Text, sentiment: Text) -> None:
+    """Persists feedback to a JSON store alongside the project data."""
+    try:
+        data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
+        store_path = os.path.join(data_dir, "feedback_store.json")
+        entries = []
+        if os.path.exists(store_path):
+            try:
+                with open(store_path, "r", encoding="utf-8") as f:
+                    entries = json.load(f)
+                    if not isinstance(entries, list):
+                        entries = []
+            except Exception:
+                entries = []
+        entries.append({
+            "timestamp": datetime.now().isoformat(),
+            "feedback": feedback,
+            "sentiment": sentiment,
+        })
+        with open(store_path, "w", encoding="utf-8") as f:
+            json.dump(entries, f, ensure_ascii=False, indent=2)
+    except Exception:
+        # Never break the conversation because storage failed.
+        pass
+
+
+class ActionAnalyzeFeedback(Action):
+
+    def name(self) -> Text:
+        return "action_analyze_feedback"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
+        feedback = tracker.get_slot("feedback") or ""
+        sentiment = _sentiment(feedback)
+
+        _store_feedback(feedback, sentiment)
+
+        if sentiment == "positive":
+            dispatcher.utter_message(response="utter_feedback_positive")
+        elif sentiment == "negative":
+            dispatcher.utter_message(response="utter_feedback_negative")
+        else:
+            dispatcher.utter_message(response="utter_feedback_neutral")
+
+        dispatcher.utter_message(response="utter_feedback_closing")
+
+        return []
+
+
+class ActionResetFeedback(Action):
+
+    def name(self) -> Text:
+        return "action_reset_feedback"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
+        return [
+            SlotSet("feedback", None),
+            ActiveLoop(None),
         ]

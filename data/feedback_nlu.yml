@@ -1,0 +1,91 @@
+version: "3.1"
+
+nlu:
+
+# ============================================================
+# GUEST FEEDBACK
+# ============================================================
+
+- intent: give_feedback
+  examples: |
+
+    # ----- Intent to give feedback -----
+    - I want to give feedback
+    - I want to leave a review
+    - I have some feedback
+    - I would like to share some feedback
+    - I'd like to give feedback
+    - Can I give feedback?
+    - Can I leave a review?
+    - I want to submit feedback
+    - I have a review to share
+    - Let me give my feedback
+    - I want to tell you about my stay
+    - mujhe feedback dena hai
+    - mujhe review dena hai
+    - main feedback dena chahta hun
+    - feedback dena hai
+    - mujhe apne experience ke baare mein batana hai
+    - review chhodna hai
+    - main apni raay dena chahta hun
+
+    # ----- Positive feedback -----
+    - The room was excellent
+    - The room was amazing
+    - Excellent service
+    - I really enjoyed my stay
+    - The room was fantastic
+    - The staff were very helpful
+    - I was very happy with the service
+    - The service was wonderful
+    - I loved my stay
+    - The food was delicious
+    - Great hospitality
+    - The room was very clean
+    - I had an amazing experience
+    - The room bahut acha tha
+    - Service bahut achhi thi
+    - Staff bahut helpful tha
+    - Room bahut accha tha
+    - Mujhe stay bahut pasand aaya
+    - Khana bahut badhiya tha
+    - Bahut acchi service mili
+    - Thank you, bahut accha service tha
+    - Bahut badhiya stay tha
+    - Bahut pyaara stay tha
+
+    # ----- Negative feedback -----
+    - The room was dirty
+    - I didn't like the service
+    - The service was terrible
+    - I am unhappy with my stay
+    - The room was not clean
+    - The staff were rude
+    - I had a bad experience
+    - The service was poor
+    - The room was noisy
+    - The bed was uncomfortable
+    - I was disappointed with the room
+    - The room clean nahi hai
+    - Room saaf nahi tha
+    - Service bahut kharab thi
+    - Staff rude tha
+    - Mujhe stay acha nahi laga
+    - Khana bekar tha
+    - Bahut buri service thi
+    - Raat bahut shor tha
+    - Room ganda tha
+
+    # ----- Neutral feedback -----
+    - The room was okay
+    - The service was average
+    - The room was fine
+    - The stay was alright
+    - The room was decent
+    - The service was satisfactory
+    - It was an okay experience
+    - The room was neither great nor bad
+    - Sab kuch theek tha
+    - Service theek tha
+    - Room theek tha
+    - Experienced theek tha

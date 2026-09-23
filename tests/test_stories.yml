@@ -1,91 +1,93 @@
-#### This file contains tests to evaluate that your bot behaves as expected.
-#### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
+#### This file contains tests to evaluate that the hotel chatbot behaves as expected.
 
 stories:
-- story: happy path 1
-  steps:
-  - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
-  - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
 
-- story: happy path 2
-  steps:
-  - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
-  - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
-  - user: |
-      bye-bye!
-    intent: goodbye
-  - action: utter_goodbye
+# ------------------------------------------------------------
+# PERSON 1 - ROOM BOOKING
+# ------------------------------------------------------------
 
-- story: sad path 1
+- story: book a room
   steps:
   - user: |
-      hello
-    intent: greet
-  - action: utter_greet
+      I want to book a deluxe room
+    intent: book_room
+  - action: booking_form
+  - active_loop: booking_form
   - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      yes
+      2
     intent: affirm
-  - action: utter_happy
+  - action: booking_form
+  - active_loop: null
+  - action: utter_booking_confirmation
+  - action: action_reset_booking
 
-- story: sad path 2
+# ------------------------------------------------------------
+# PERSON 2 - ROOM CLEANING
+# ------------------------------------------------------------
+
+- story: request room cleaning
+  steps:
+  - user: |
+      I need room cleaning
+    intent: request_cleaning
+  - action: cleaning_form
+  - active_loop: cleaning_form
+
+# ------------------------------------------------------------
+# PERSON 2 - FAQ
+# ------------------------------------------------------------
+
+- story: ask check-in time
+  steps:
+  - user: |
+      What time is check-in?
+    intent: faq/ask_check_in
+  - action: utter_faq
+
+# ------------------------------------------------------------
+# PERSON 3 - GREETINGS / FAREWELLS
+# ------------------------------------------------------------
+
+- story: greeting uses time based action
   steps:
   - user: |
       hello
     intent: greet
-  - action: utter_greet
-  - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      not really
-    intent: deny
-  - action: utter_goodbye
+  - action: action_time_based_greeting
 
-- story: sad path 3
+- story: farewell
   steps:
   - user: |
-      hi
-    intent: greet
-  - action: utter_greet
-  - user: |
-      very terrible
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      no
-    intent: deny
-  - action: utter_goodbye
-
-- story: say goodbye
-  steps:
-  - user: |
-      bye-bye!
+      goodbye
     intent: goodbye
   - action: utter_goodbye
 
-- story: bot challenge
+# ------------------------------------------------------------
+# PERSON 3 - GUEST FEEDBACK
+# ------------------------------------------------------------
+
+- story: give positive feedback directly
   steps:
   - user: |
-      are you a bot?
-    intent: bot_challenge
-  - action: utter_iamabot
+      The room was excellent
+    intent: give_feedback
+  - action: feedback_form
+  - active_loop: feedback_form
+  - active_loop: null
+  - action: action_analyze_feedback
+  - action: action_reset_feedback
+
+- story: say you want to give feedback then provide it
+  steps:
+  - user: |
+      I want to give feedback
+    intent: give_feedback
+  - action: feedback_form
+  - active_loop: feedback_form
+  - user: |
+      The service was terrible
+    intent: give_feedback
+  - action: feedback_form
+  - active_loop: null
+  - action: action_analyze_feedback
+  - action: action_reset_feedback

@@ -162,3 +162,23 @@ rules:
   steps:
     - intent: cleaning_not_now
     - action: utter_cleaning_not_now
+
+# ============================================================
+# GUEST FEEDBACK
+# ============================================================
+
+- rule: Activate feedback form
+  steps:
+    - intent: give_feedback
+    - action: feedback_form
+    - active_loop: feedback_form
+
+
+- rule: Submit feedback form
+  condition:
+    - active_loop: feedback_form
+  steps:
+    - action: feedback_form
+    - active_loop: null
+    - action: action_analyze_feedback
+    - action: action_reset_feedback

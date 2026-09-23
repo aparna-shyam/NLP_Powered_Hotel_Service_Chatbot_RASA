@@ -1,0 +1,44 @@
+version: "3.1"
+
+stories:
+
+# ============================================================
+# GUEST FEEDBACK STORIES
+# ============================================================
+
+# ------------------------------------------------------------
+# Direct feedback (feedback provided in the first message)
+# ------------------------------------------------------------
+
+- story: direct positive feedback
+  steps:
+    - intent: give_feedback
+    - action: feedback_form
+    - active_loop: feedback_form
+    - active_loop: null
+    - action: action_analyze_feedback
+    - action: action_reset_feedback
+
+- story: direct negative feedback
+  steps:
+    - intent: give_feedback
+    - action: feedback_form
+    - active_loop: feedback_form
+    - active_loop: null
+    - action: action_analyze_feedback
+    - action: action_reset_feedback
+
+# ------------------------------------------------------------
+# Feedback requested by the bot first
+# ------------------------------------------------------------
+
+- story: request to give feedback then provide it
+  steps:
+    - intent: give_feedback
+    - action: feedback_form
+    - active_loop: feedback_form
+    - slot_was_set:
+        - feedback: The room was excellent
+    - active_loop: null
+    - action: action_analyze_feedback
+    - action: action_reset_feedback

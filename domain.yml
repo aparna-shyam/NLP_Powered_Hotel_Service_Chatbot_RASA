@@ -31,6 +31,11 @@ intents:
   # =========================
   - faq
 
+  # =========================
+  # GUEST FEEDBACK
+  # =========================
+  - give_feedback
+
 
 entities:
   # Room booking
@@ -128,6 +133,20 @@ slots:
       value: once
 
 
+  # =====================================================
+  # GUEST FEEDBACK
+  # =====================================================
+
+  feedback:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: feedback_form
+            requested_slot: feedback
+
+
 responses:
 
   # =====================================================
@@ -135,7 +154,7 @@ responses:
   # =====================================================
 
   utter_goodbye:
-    - text: "Goodbye! Have a pleasant stay at our hotel."
+    - text: "Thank you for contacting us. Have a wonderful day!"
 
   utter_iamabot:
     - text: "I am a hotel service chatbot powered by Rasa. I can help you with room bookings, cleaning requests, and hotel information."
@@ -237,6 +256,26 @@ responses:
         self-parking is available in the basement.
 
 
+  # =====================================================
+  # GUEST FEEDBACK
+  # =====================================================
+
+  utter_ask_feedback:
+    - text: "I would love to hear your feedback. What can you tell me about your stay?"
+
+  utter_feedback_positive:
+    - text: "Thank you for your wonderful feedback! We're so glad you enjoyed your stay with us."
+
+  utter_feedback_negative:
+    - text: "We're sorry to hear about your experience. Your feedback is very important to us, and we will work to improve."
+
+  utter_feedback_neutral:
+    - text: "Thank you for your feedback. We appreciate you taking the time to share your experience."
+
+  utter_feedback_closing:
+    - text: "Thank you for sharing your thoughts. Is there anything else I can help you with?"
+
+
 actions:
 
   # Booking
@@ -254,6 +293,10 @@ actions:
 
   # Greeting
   - action_time_based_greeting
+
+  # Guest feedback
+  - action_analyze_feedback
+  - action_reset_feedback
 
 
 forms:
@@ -277,6 +320,15 @@ forms:
       - cleaning_type
       - cleaning_frequency
       - cleaning_time
+
+
+  # =====================================================
+  # FEEDBACK FORM
+  # =====================================================
+
+  feedback_form:
+    required_slots:
+      - feedback
 
 
 session_config:
